@@ -38,11 +38,10 @@ export class ChattyServer {
       cookieSession({
         name: 'session',
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge: 5000, // 24 hours
         secure: config.NODE_ENV !== 'development'
       })
     );
-
     app.use(hpp());
     app.use(helmet());
     app.use(
@@ -73,7 +72,6 @@ export class ChattyServer {
     });
 
     app.use((error: IErrorResponse, _req: Request, res: Response, next: NextFunction) => {
-      console.log(error);
       log.error(error);
       if (error instanceof CustomError) {
         return res.status(error.statusCode).json(error.serializeError());
@@ -89,7 +87,7 @@ export class ChattyServer {
       this.startHttpServer(httpServer);
       this.socketIOConnections(socketIO);
     } catch (error) {
-      console.log(error);
+      log.error(error);
     }
   }
 
@@ -118,7 +116,8 @@ export class ChattyServer {
     });
   }
 
-  private socketIOConnections(io: Server): void {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  private socketIOConnections(_io: Server): void {
     log.info('socketIOConnections');
   }
 }
