@@ -14,6 +14,7 @@ import 'express-async-errors';
 import applicationRoutes from '@root/routes';
 import { config } from '@root/config';
 import { CustomError, IErrorResponse } from '@global/helpers/error-handler';
+import { SocketIOPostHandler } from '@socket/post';
 
 const SERVER_PORT = 4000;
 const log: Logger = config.createLogger('server');
@@ -38,7 +39,7 @@ export class ChattyServer {
       cookieSession({
         name: 'session',
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
-        maxAge: 5000, // 24 hours
+        maxAge: 5000 * 60 * 60, // 24 hours
         secure: config.NODE_ENV !== 'development'
       })
     );
@@ -116,8 +117,9 @@ export class ChattyServer {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  private socketIOConnections(_io: Server): void {
-    log.info('socketIOConnections');
+  private socketIOConnections(io: Server): void {
+    const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io);
+
+    postSocketHandler.listen();
   }
 }

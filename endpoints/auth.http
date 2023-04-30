@@ -18,7 +18,7 @@ withCredentials: true
 
 ###
 
-### POST {{baseUrl}}/{{urlPath}}/signin
+###
 POST {{baseUrl}}/{{urlPath}}/signin
 Content-Type: application/json
 Accept: application/json
