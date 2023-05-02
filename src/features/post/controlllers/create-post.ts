@@ -37,7 +37,7 @@ export class Create {
       imgId: '',
       createdAt: new Date(),
       reactions: {
-        likes: 0,
+        like: 0,
         love: 0,
         happy: 0,
         wow: 0,
@@ -94,7 +94,7 @@ export class Create {
       imgId: result.public_id,
       createdAt: new Date(),
       reactions: {
-        likes: 0,
+        like: 0,
         love: 0,
         happy: 0,
         wow: 0,

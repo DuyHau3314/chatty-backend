@@ -1,16 +1,14 @@
 import { ObjectId } from 'mongodb';
 import mongoose, { Document } from 'mongoose';
 
-// move this to reactions interface later
 export interface IReactions {
-  likes: number;
+  like: number;
   love: number;
   happy: number;
   wow: number;
   sad: number;
   angry: number;
 }
-
 export interface IPostDocument extends Document {
   _id?: string | mongoose.Types.ObjectId;
   userId: string;
